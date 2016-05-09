@@ -19,7 +19,21 @@ public class Walker extends Piece {
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
+		if ( Piece.rand(0, 2) == 0){
+			int random = Piece.rand(0, 3);
+			if ( random == 0 && this.getMap().isInGrid(this.getX(), this.getY()-1) && this.getMap().isEmpty(this.getX(), this.getY()-1)) {
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
+			}
+			else if ( random == 1 && this.getMap().isInGrid(this.getX(), this.getY()+1) && this.getMap().isEmpty(this.getX(), this.getY()+1)) {
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
+			}
+			else if ( random == 2 && this.getMap().isInGrid(this.getX()-1, this.getY()) && this.getMap().isEmpty(this.getX()-1, this.getY())){
+				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
+			}
+			else if ( random == 3 && this.getMap().isInGrid(this.getX()+1, this.getY()) && this.getMap().isEmpty(this.getX()+1, this.getY())){
+				this.getMap().move(this.getX(), this.getY(), this.getX()+1,this.getY() );
+			}
+		}
 		
 	}
 	  public String toString() {

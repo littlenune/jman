@@ -96,6 +96,7 @@ public class Map implements ActionListener{
 		frame.setLocation(5,30);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/** Add to instructBox the rules of the game (a sequence of JLabels). */
@@ -159,7 +160,7 @@ public class Map implements ActionListener{
      if the new piece is J*Man, store it in field jMan.
      Precondition: typ is one of the piece constants in class Piece.*/
 	public void putNew(int typ, int x, int y){
-		
+
 		if ( isInGrid(x,y) && isEmpty(x,y)){
 			if ( typ == 0 ){
 				this.grid[x][y] = new Block(x,y,this);

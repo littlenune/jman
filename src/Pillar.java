@@ -19,8 +19,16 @@ public class Pillar extends Piece {
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-
+		if ( Piece.rand(0, 2) == 0){
+			int random = Piece.rand(0, 2);
+			if ( random == 0){
+				this.setColor(Color.RED);
+			}
+			else if ( random == 1){
+				this.setColor(Color.GREEN);
+			}
+			else this.setColor(Color.YELLOW);
+		}
 	}
 	  public String toString() {
 	        return getColorWord() + " Pillar at (" + getX() + ", " + getY() + ")";

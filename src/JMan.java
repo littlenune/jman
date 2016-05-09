@@ -36,19 +36,65 @@ public class JMan extends Piece {
 	public void step(int i){
 		setActed(true);
 		if ( i == 0 && this.getMap().isInGrid(this.getX(), this.getY()-1)) {
-			this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
+			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()-1);
+			if ( piece == null){
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
+			}
+			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
+				this.setColor(piece.getColor());
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
+			}
 		}
 		else if ( i == 1 && this.getMap().isInGrid(this.getX(), this.getY()+1)) {
-			this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
+			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()+1);
+			if ( piece == null){
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
+			}
+			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
+				this.setColor(piece.getColor());
+				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
+			}
 		}
 		else if ( i == 2 && this.getMap().isInGrid(this.getX()-1, this.getY())){
-			this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
+			Piece piece = this.getMap().pieceAt(this.getX()-1, this.getY());
+			if ( piece == null){
+				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
+			}
+			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
+				this.setColor(piece.getColor());
+				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
+			}
+
 		}
 		else if ( i == 3 && this.getMap().isInGrid(this.getX()+1, this.getY())){
-			this.getMap().move(this.getX(), this.getY(), this.getX()+1,this.getY() );
+			Piece piece = this.getMap().pieceAt(this.getX()+1, this.getY());
+			 if ( piece == null){
+					this.getMap().move(this.getX(), this.getY(), this.getX()+1, this.getY());
+				}
+			 else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
+				this.setColor(piece.getColor());
+				this.getMap().move(this.getX(), this.getY(), this.getX()+1,this.getY() );
+			}
 		}
 	}
-
+	public int pieceType(int x, int y){
+		Piece piece = this.getMap().pieceAt(x, y);
+		return piece.getType();
+	}
+	public boolean checkEat(Color color){
+		if ( this.getColor().equals(Color.GREEN) && color.equals(Color.RED)) {
+			return true;
+		}
+		else if ( this.getColor().equals(Color.RED) && color.equals(Color.YELLOW)){
+			this.setColor(Color.YELLOW);
+			return true;
+		}
+		else if ( this.getColor().equals(Color.YELLOW) && color.equals(Color.GREEN)){
+			this.setColor(Color.GREEN);
+			return true;
+		}
+		return false;
+	}
 	/** = representation of this piece */
 	public String toString() {
 		return getColorWord() + " J*Man at (" + getX() + ", " + getY() + ")";
