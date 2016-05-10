@@ -1,3 +1,4 @@
+package jman;
 import java.awt.*;
 
 /** An instance of this class is a J*Man.
@@ -8,8 +9,8 @@ public class JMan extends Piece {
      with color red if c = 0, green if c = 1, and yellow if c = 2. */
 	public JMan(int x, int y, int c, Map m){
 		super(Piece.JMAN, m);
-		this.setX(x);
-		this.setY(y);
+		super.setX(x);
+		super.setY(y);
 		if ( c == 0 ) this.setColor(Color.RED);
 		else if ( c == 1 ) this.setColor(Color.GREEN);
 		else if ( c == 2 ) this.setColor(Color.YELLOW);
@@ -22,13 +23,16 @@ public class JMan extends Piece {
 		super(Piece.JMAN, m);
 		this.setX(x);
 		this.setY(y);
-		this.setColor(c);
+		if ( c.equals(Color.RED) || c.equals(Color.GREEN) || c.equals(Color.YELLOW))
+			this.setColor(c);
 	}
 
 	/** J*Man should move based on what button is pushed.
      This method is not used. */
-	public void act(){
-		return;
+
+	public void act() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/** Move J*Man one step based on the value of i:
@@ -37,52 +41,37 @@ public class JMan extends Piece {
 		setActed(true);
 		if ( i == 0 && this.getMap().isInGrid(this.getX(), this.getY()-1)) {
 			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()-1);
-			if ( piece == null){
-				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
-			}
-			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
-				this.setColor(piece.getColor());
+			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
 				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
 			}
 		}
 		else if ( i == 1 && this.getMap().isInGrid(this.getX(), this.getY()+1)) {
 			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()+1);
-			if ( piece == null){
-				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
-			}
-			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
-				this.setColor(piece.getColor());
+			if ( piece == null ||  ( piece.getType() != 0 && this.canEat(piece.getColor()))){
 				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
 			}
 		}
 		else if ( i == 2 && this.getMap().isInGrid(this.getX()-1, this.getY())){
 			Piece piece = this.getMap().pieceAt(this.getX()-1, this.getY());
-			if ( piece == null){
+			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
 				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
 			}
-			else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
-				this.setColor(piece.getColor());
-				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
-			}
-
 		}
 		else if ( i == 3 && this.getMap().isInGrid(this.getX()+1, this.getY())){
 			Piece piece = this.getMap().pieceAt(this.getX()+1, this.getY());
-			 if ( piece == null){
-					this.getMap().move(this.getX(), this.getY(), this.getX()+1, this.getY());
-				}
-			 else if ( piece.getType() != 0 && this.checkEat(piece.getColor())){
-				this.setColor(piece.getColor());
-				this.getMap().move(this.getX(), this.getY(), this.getX()+1,this.getY() );
+			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
+				this.getMap().move(this.getX(), this.getY(), this.getX()+1, this.getY());
 			}
 		}
 	}
-	public int pieceType(int x, int y){
-		Piece piece = this.getMap().pieceAt(x, y);
-		return piece.getType();
-	}
-	public boolean checkEat(Color color){
+	/**
+	 * Check whether 
+	 * @param color
+	 * @return whether jman could eat walker or pillar or not. If it can return true otherwise return false.
+	 */
+	public boolean canEat(Color color){
 		if ( this.getColor().equals(Color.GREEN) && color.equals(Color.RED)) {
+			this.setColor(Color.RED);
 			return true;
 		}
 		else if ( this.getColor().equals(Color.RED) && color.equals(Color.YELLOW)){
@@ -99,4 +88,5 @@ public class JMan extends Piece {
 	public String toString() {
 		return getColorWord() + " J*Man at (" + getX() + ", " + getY() + ")";
 	}
+
 }

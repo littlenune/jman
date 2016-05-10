@@ -1,3 +1,4 @@
+package jman;
 import java.awt.*;
 
 /** An instance is a piece for use in the J*Man!! assignment 2.*/
