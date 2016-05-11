@@ -1,8 +1,11 @@
 package jman;
 import java.awt.*;
 
-/** An instance of this class is a J*Man.
- There should at most one J*Man in a game board at a time*/
+
+/**
+ * An instance of this class is Jman.
+ * @author Tunya Wittayasiripaiboon 5810546676
+ */
 public class JMan extends Piece {
 
 	/** Constructor: a new J*Man at position (x, y) on Map m
