@@ -41,25 +41,25 @@ public class JMan extends Piece {
 		setActed(true);
 		if ( i == 0 && this.getMap().isInGrid(this.getX(), this.getY()-1)) {
 			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()-1);
-			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
+			if ( piece == null || this.canEat(piece.getColor())){
 				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()-1);
 			}
 		}
 		else if ( i == 1 && this.getMap().isInGrid(this.getX(), this.getY()+1)) {
 			Piece piece = this.getMap().pieceAt(this.getX(), this.getY()+1);
-			if ( piece == null ||  ( piece.getType() != 0 && this.canEat(piece.getColor()))){
+			if ( piece == null  || this.canEat(piece.getColor())){
 				this.getMap().move(this.getX(), this.getY(), this.getX(), this.getY()+1);
 			}
 		}
 		else if ( i == 2 && this.getMap().isInGrid(this.getX()-1, this.getY())){
 			Piece piece = this.getMap().pieceAt(this.getX()-1, this.getY());
-			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
+			if ( piece == null ||  this.canEat(piece.getColor())){
 				this.getMap().move(this.getX(), this.getY(), this.getX()-1, this.getY());
 			}
 		}
 		else if ( i == 3 && this.getMap().isInGrid(this.getX()+1, this.getY())){
 			Piece piece = this.getMap().pieceAt(this.getX()+1, this.getY());
-			if ( piece == null || ( piece.getType() != 0 && this.canEat(piece.getColor()))){
+			if ( piece == null ||  this.canEat(piece.getColor())){
 				this.getMap().move(this.getX(), this.getY(), this.getX()+1, this.getY());
 			}
 		}
@@ -78,7 +78,7 @@ public class JMan extends Piece {
 			this.setColor(Color.YELLOW);
 			return true;
 		}
-		else if ( this.getColor().equals(Color.YELLOW) && color.equals(Color.GREEN)){
+		else if ( this.getColor().equals(Color.YELLOW) && color.equals(Color.GREEN)){ 
 			this.setColor(Color.GREEN);
 			return true;
 		}
